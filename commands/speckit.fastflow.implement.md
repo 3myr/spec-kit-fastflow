@@ -47,6 +47,7 @@ Read all files referenced in the Context table to understand:
 - Current code patterns and naming.
 - Existing tests and conventions.
 - Dependencies and contracts.
+- Where Onion boundaries must be preserved.
 
 ### 3. Execute tasks in order
 
@@ -55,6 +56,7 @@ For each task:
 - Follow the corresponding plan step.
 - Implement only what belongs to `Scope now`.
 - Respect `Architecture guards`.
+- Preserve inward dependencies between layers.
 - Update the FastFlow file by marking the completed task.
 - If a task reveals an unplanned architectural shift, stop and ask whether to revise the FastFlow file or upgrade to full SDD.
 
@@ -63,7 +65,9 @@ For each task:
 After implementation:
 
 - Check that all requirements are satisfied.
-- Run relevant tests if test tasks exist.
+- Check that Onion boundaries are still respected.
+- Run the tests required by the Test strategy, prioritizing business and functional behavior.
+- Do not add purely technical tests unless an essential risk justifies them.
 - Run linting or type checks if configured.
 - Update `Done when` checkboxes.
 - Change `Status: draft` to `Status: done` if all criteria are met.
@@ -76,6 +80,7 @@ Stop and escalate when:
 - The number of changed files or tasks is significantly higher than expected.
 - Core architecture decisions are no longer stable.
 - New ambiguity appears that needs discovery or clarification.
+- The work can no longer be expressed cleanly through Onion boundaries.
 
 In that case, recommend either:
 
@@ -89,13 +94,13 @@ Return a markdown report in this shape:
 ```markdown
 # FastFlow Complete
 
-| Field | Value |
-|---|---|
-| File | specs/fastflow/<feature-id>.md |
-| Tasks completed | N / N |
-| Files modified | ... |
-| Tests | Pass / Fail / Not run |
-| Status | done / partial / blocked |
+| Field              | Value |
+|---                 |    ---|
+| File               | specs/fastflow/<feature-id>.md |
+| Tasks completed    | N / N |
+| Files modified     | ... |
+| Tests              | Pass / Fail / Not run |
+| Status             | done / partial / blocked |
 
 ## Changes made
 
@@ -115,5 +120,7 @@ Return a markdown report in this shape:
 - Complete one task at a time.
 - Keep the FastFlow file updated while implementing.
 - Match existing project patterns and conventions.
+- Preserve Onion Architecture boundaries in both frontend and backend work.
+- Favor business and functional tests over technical tests.
 - Stop on ambiguity instead of guessing.
 - Escalate to full SDD when the work no longer fits a single-file increment.

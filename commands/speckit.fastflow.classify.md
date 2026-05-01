@@ -38,11 +38,12 @@ Evaluate the request using these signals.
 #### FastFlow signals
 
 - New feature increment for an existing or new application.
-- Small-to-medium scope spanning UI, API, domain, or persistence in a controlled way.
+- Small-to-medium scope spanning presentation, application, domain, or infrastructure in a controlled way.
 - MVP-ready work that should evolve later without refactoring everything.
 - Need for a single-file spec with enough structure to guide multiple implementation steps.
 - Change likely affecting roughly 3 to 12 files.
 - Requires design choices, but not a full discovery or architecture initiative.
+- Can be expressed clearly through Onion Architecture layers.
 
 #### Full SDD signals
 
@@ -53,7 +54,9 @@ Evaluate the request using these signals.
 - Cross-cutting concern across many modules.
 - External integration with unclear behavior or high risk.
 - Unknown scope requiring clarification and staged planning.
-- Change likely affecting more than 12 files or many teams/areas.
+- Change likely affecting more than 12 files or many teams or areas.
+- Cannot be expressed cleanly through Onion Architecture boundaries.
+- Requires extensive technical validation beyond business or functional testing.
 
 ### 2. Estimate scope
 
@@ -64,6 +67,7 @@ Estimate:
 - Risk to existing functionality.
 - Need for coordination across modules.
 - Degree of ambiguity.
+- Fit with Onion Architecture boundaries.
 
 ### 3. Recommend workflow
 
@@ -88,14 +92,15 @@ Return a markdown report in this shape:
 ```markdown
 # Task Classification
 
-| Factor | Assessment |
-|---|---|
-| Task | ... |
-| Complexity | Tiny / Focused / Large |
-| Estimated files | N |
-| Estimated tasks | N |
-| Risk | Low / Medium / High |
-| Recommendation | `speckit.fastflow` / `speckit.specify` / tiny change |
+| Factor             | Assessment |
+|---                 |         ---|
+| Task               | ... |
+| Complexity         | Tiny / Focused / Large |
+| Estimated files    | N |
+| Estimated tasks    | N |
+| Risk               | Low / Medium / High |
+| Onion fit          | Good / Partial / Poor |
+| Recommendation     | `speckit.fastflow` / `speckit.specify` / tiny change |
 
 ## Why
 

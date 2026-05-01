@@ -4,9 +4,9 @@ FastFlow is a Spec Kit extension for teams who want a single-file workflow that 
 
 It sits between tiny one-off changes and the full Spec-Driven Development workflow:
 
-- tiny changes can stay tiny,
-- feature increments use one durable FastFlow file,
-- large or ambiguous work escalates to full SDD.
+- Tiny changes can stay tiny.
+- Feature increments use one durable FastFlow file.
+- Large or ambiguous work escalates to full SDD.
 
 ## Commands
 
@@ -19,7 +19,7 @@ It sits between tiny one-off changes and the full Spec-Driven Development workfl
 Use FastFlow when:
 
 - you want speed,
-- you want one main file instead of spec/plan/tasks split,
+- you want one main file instead of separate spec, plan, and tasks files,
 - you are building MVP increments that should evolve into V1 and V2,
 - you still need architecture guardrails and explicit scope boundaries.
 
@@ -29,14 +29,6 @@ Use full SDD when:
 - architecture is unstable,
 - multiple independent stories need coordinated planning,
 - discovery and clarification are required.
-
-## Typical workflow
-
-1. Start with `speckit.fastflow.classify`.
-2. Run `speckit.fastflow` for focused feature increments.
-3. Review the generated file.
-4. Run `speckit.fastflow.implement`.
-5. Split deferred work into later FastFlow increments.
 
 ## Architectural stance
 
@@ -54,5 +46,13 @@ Dependencies must always point inward.
 FastFlow prioritizes business and functional testing.
 
 - Test domain rules, use cases, and critical user flows first.
-- Avoid purely technical tests for framework glue or trivial adapters.
+- Avoid purely technical tests for framework glue, trivial adapters, or passive wiring.
 - Add technical tests only when they protect an essential risk.
+
+## Typical workflow
+
+1. Start with `speckit.fastflow.classify`.
+2. Run `speckit.fastflow` for focused feature increments.
+3. Review the generated file.
+4. Run `speckit.fastflow.implement`.
+5. Split deferred work into later FastFlow increments.

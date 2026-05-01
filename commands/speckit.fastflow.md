@@ -31,11 +31,14 @@ Good fit:
 - A first MVP slice of a new application.
 - A medium-sized capability that should stay easy to evolve.
 - Work that spans multiple layers but still fits in one coordinated plan.
+- Work that can be described clearly in a single durable file.
 
 Bad fit:
 
 - A tiny change that can be implemented directly.
 - A large initiative with high ambiguity, deep discovery, or many independent stories.
+- Work that requires multiple coordinated increments before implementation can start.
+- Work that cannot be expressed cleanly through Onion Architecture boundaries.
 
 If the scope is too large, suggest prompts to break down the request.
 
@@ -46,6 +49,7 @@ Scan the codebase or target structure to determine:
 - Files to modify or create.
 - Related modules, components, services, data models, routes, or tests.
 - Constraints already defined by the constitution or existing architecture.
+- Existing Onion boundaries, dependencies, and technical adapters.
 
 ### 3. Create the FastFlow file
 
@@ -85,9 +89,9 @@ Create a single file at `specs/fastflow/<feature-id>.md` using the template belo
 
 ## Requirements
 
-1. Requirement 1, clear and testable.
-2. Requirement 2, clear and testable.
-3. Requirement 3, clear and testable.
+1. Requirement 1, clear, testable, and business or user observable.
+2. Requirement 2, clear, testable, and business or user observable.
+3. Requirement 3, clear, testable, and business or user observable.
 
 ## Architecture guards
 
@@ -95,7 +99,7 @@ Create a single file at `specs/fastflow/<feature-id>.md` using the template belo
 - Keep business rules and functional decision logic inside the Domain layer.
 - Use the Application layer to orchestrate use cases and coordinate ports, without embedding technical details.
 - Put technical concerns, frameworks, I/O, persistence, HTTP, UI bindings, and external integrations in Infrastructure or Presentation adapters.
-- Dependencies must point inward : Presentation and Infrastructure may depend on Application and Domain, but Domain must not depend on framework or delivery details.
+- Dependencies must point inward: Presentation and Infrastructure may depend on Application and Domain, but Domain must not depend on framework or delivery details.
 - On the frontend, do not place business rules directly in components, pages, stores, or framework-specific files when they belong to the domain or use-case level.
 - Reuse existing patterns unless this FastFlow explicitly introduces a better and justified evolution.
 - Avoid shortcuts that would block later evolution from MVP to V1 or V2.
@@ -181,6 +185,7 @@ Return a short markdown summary:
 - Always make scope boundaries explicit with `Scope now` and `Not now`.
 - Every requirement must be testable.
 - Every plan must be implementable in order.
+- Prefer implementation plans that establish domain and application behavior before wiring presentation or infrastructure adapters, when the nature of the feature allows it.
 - Always express the feature through Onion Architecture layers, including frontend work.
 - Favor business and functional tests over technical tests; technical-only tests require explicit justification.
 - Always include future-safe guidance through `Architecture guards` and `Follow-ups`.
