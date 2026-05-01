@@ -1,12 +1,12 @@
 schema_version: "1.0"
 
 extension:
-  id: tinyspec
-  name: "TinySpec"
+  id: fastflow
+  name: "FastFlow"
   version: "1.0.0"
-  description: "Lightweight single-file workflow for small tasks — skip the heavy multi-step SDD process"
-  author: "Quratulain-bilal"
-  repository: "https://github.com/Quratulain-bilal/spec-kit-tinyspec"
+  description: "Lightweight single-file workflow for MVP-ready feature increments with Onion Architecture guardrails"
+  author: "3myr"
+  repository: "https://github.com/3myr/spec-kit-fastflow"
   license: "MIT"
 
 requires:
@@ -14,26 +14,26 @@ requires:
 
 provides:
   commands:
-    - name: speckit.tinyspec
-      file: commands/speckit.tinyspec.md
-      description: "Generate a single lightweight spec file with context, plan, and tasks for small changes"
-    - name: speckit.tinyspec.implement
-      file: commands/speckit.tinyspec.implement.md
-      description: "Implement a small change directly from its tinyspec file"
-    - name: speckit.tinyspec.classify
-      file: commands/speckit.tinyspec.classify.md
-      description: "Classify task complexity and recommend tinyspec or full SDD workflow"
+    - name: speckit.fastflow
+      file: commands/speckit.fastflow.md
+      description: Generate a single-file spec for an evolutive feature increment
+    - name: speckit.fastflow.implement
+      file: commands/speckit.fastflow.implement.md
+      description: Implement a feature increment directly from its FastFlow file
+    - name: speckit.fastflow.classify
+      file: commands/speckit.fastflow.classify.md
+      description: Route work between tiny change, FastFlow, and full SDD
 
 hooks:
   before_specify:
-    command: speckit.tinyspec.classify
+    command: speckit.fastflow.classify
     optional: true
-    prompt: "Check if this task is small enough for the lightweight tinyspec workflow?"
-    description: "Auto-classify task complexity before starting the full SDD workflow"
+    prompt: "Check if this task should use FastFlow instead of the full SDD workflow"
 
 tags:
   - "lightweight"
-  - "small-tasks"
+  - "mvp"
   - "workflow"
-  - "productivity"
-  - "efficiency"
+  - "iterative-development"
+  - "single-file-spec"
+  - "onion-architecture"
