@@ -11,7 +11,7 @@ It sits between tiny one-off changes and the full Spec-Driven Development workfl
 ## Commands
 
 - `speckit.fastflow.classify`: classify the task and recommend the right workflow.
-- `speckit.fastflow`: generate a single FastFlow file under `specs/fastflow/`.
+- `speckit.fastflow.create`: generate a single FastFlow file under `specs/fastflow/`.
 - `speckit.fastflow.implement`: implement directly from a FastFlow file.
 
 ## Positioning
@@ -52,7 +52,7 @@ FastFlow prioritizes business and functional testing.
 ## Typical workflow
 
 1. Start with `speckit.fastflow.classify`.
-2. Run `speckit.fastflow` for focused feature increments.
+2. Run `speckit.fastflow.create` for focused feature increments.
 3. Review the generated file.
 4. Run `speckit.fastflow.implement`.
 5. Split deferred work into later FastFlow increments.

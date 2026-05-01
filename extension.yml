@@ -14,8 +14,8 @@ requires:
 
 provides:
   commands:
-    - name: speckit.fastflow
-      file: commands/speckit.fastflow.md
+    - name: speckit.fastflow.create
+      file: commands/speckit.fastflow.create.md
       description: Generate a single-file spec for an evolutive feature increment
     - name: speckit.fastflow.implement
       file: commands/speckit.fastflow.implement.md

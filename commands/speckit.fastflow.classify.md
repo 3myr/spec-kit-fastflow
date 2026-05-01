@@ -93,7 +93,7 @@ Return a markdown report in this shape:
 # Task Classification
 
 | Factor             | Assessment |
-|---                 |         ---|
+|---                 |---|
 | Task               | ... |
 | Complexity         | Tiny / Focused / Large |
 | Estimated files    | N |
