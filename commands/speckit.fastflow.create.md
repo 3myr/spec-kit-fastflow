@@ -179,7 +179,7 @@ The FastFlow file MUST use this structure:
 
 - Candidate V1 improvement.
 - Candidate V2 improvement.
-- Technical debt explicitly accepted for now.
+- Explicitly accepted technical debt for now.
 ```
 
 ### 4. Report results

@@ -6,9 +6,13 @@ description: Implement a feature increment directly from its FastFlow file
 
 Implement a feature increment by following the plan and tasks in a FastFlow file. This works like a streamlined implementation workflow: read one document, execute the tasks in order, keep the file updated, and stop when the scope no longer fits the single-file contract.
 
-## Arguments
+## User Input
 
-You MUST consider the user input before proceeding if not empty.
+```text
+$ARGUMENTS
+```
+
+You **MUST** consider the user input before proceeding if not empty.
 
 The user may specify a FastFlow name, feature id, or a direct path to the FastFlow file.
 
@@ -16,17 +20,19 @@ The user may specify a FastFlow name, feature id, or a direct path to the FastFl
 
 1. Verify a Spec Kit project exists by checking for `.specify`.
 2. Verify git is available and the project is a git repository.
-3. Locate the FastFlow file:
+3. Read `.specify/memory/constitution.md` if present.
+4. Read `.specify/extensions/fastflow/templates/fastflow-create-template.md` if present so implementation stays aligned with the FastFlow document model.
+5. Locate the FastFlow file:
+   - If the user specifies a path, use it exactly.
    - If the user specifies a name, look for `specs/fastflow/<name>.md`.
    - If no input is provided, look for the most recently created FastFlow file in `specs/fastflow`.
-   - If no FastFlow file exists, suggest running `speckit.fastflow` first.
+   - If no FastFlow file exists, suggest running `speckit.fastflow.create` first.
 
 ## Workflow
 
 ### 1. Read the FastFlow file
 
 Parse the file and extract:
-
 - Scope now.
 - Not now.
 - Context.
@@ -39,10 +45,13 @@ Parse the file and extract:
 - Done when.
 - Follow-ups.
 
+Treat the FastFlow instance file as the execution contract.
+Do not silently expand it.
+If the file still contains `{{PLACEHOLDER}}` values, stop and report that the FastFlow file was scaffolded but not filled correctly.
+
 ### 2. Load context files
 
-Read all files referenced in the Context table to understand:
-
+Read the files and areas referenced in the Context section to understand:
 - Existing architecture and boundaries.
 - Current code patterns and naming.
 - Existing tests and conventions.
@@ -52,18 +61,17 @@ Read all files referenced in the Context table to understand:
 ### 3. Execute tasks in order
 
 For each task:
-
 - Follow the corresponding plan step.
 - Implement only what belongs to `Scope now`.
-- Respect `Architecture guards`.
+- Respect `Architecture guards` and the constitution.
 - Preserve inward dependencies between layers.
+- Match existing project patterns and conventions.
 - Update the FastFlow file by marking the completed task.
 - If a task reveals an unplanned architectural shift, stop and ask whether to revise the FastFlow file or upgrade to full SDD.
 
 ### 4. Verify completion
 
 After implementation:
-
 - Check that all requirements are satisfied.
 - Check that Onion boundaries are still respected.
 - Run the tests required by the Test strategy, prioritizing business and functional behavior.
@@ -75,7 +83,6 @@ After implementation:
 ### 5. Handle scope creep
 
 Stop and escalate when:
-
 - The implementation exceeds `Scope now`.
 - The number of changed files or tasks is significantly higher than expected.
 - Core architecture decisions are no longer stable.
@@ -83,7 +90,6 @@ Stop and escalate when:
 - The work can no longer be expressed cleanly through Onion boundaries.
 
 In that case, recommend either:
-
 - Updating the FastFlow file and continuing, if the shift is still moderate.
 - Upgrading to `speckit.specify` and optionally `speckit.clarify`, if the shift is substantial.
 
@@ -94,13 +100,13 @@ Return a markdown report in this shape:
 ```markdown
 # FastFlow Complete
 
-| Field              | Value |
-|---                 |    ---|
-| File               | specs/fastflow/<feature-id>.md |
-| Tasks completed    | N / N |
-| Files modified     | ... |
-| Tests              | Pass / Fail / Not run |
-| Status             | done / partial / blocked |
+| Field | Value |
+|---|---|
+| File | specs/fastflow/<feature-id>.md |
+| Tasks completed | N / N |
+| Files modified | ... |
+| Tests | Pass / Fail / Not run |
+| Status | done / partial / blocked |
 
 ## Changes made
 
@@ -119,8 +125,7 @@ Return a markdown report in this shape:
 - Follow the FastFlow file closely. Do not silently expand scope.
 - Complete one task at a time.
 - Keep the FastFlow file updated while implementing.
-- Match existing project patterns and conventions.
-- Preserve Onion Architecture boundaries in both frontend and backend work.
+- Preserve Onion Architecture boundaries in both frontend/mobile and backend work.
 - Favor business and functional tests over technical tests.
 - Stop on ambiguity instead of guessing.
 - Escalate to full SDD when the work no longer fits a single-file increment.
